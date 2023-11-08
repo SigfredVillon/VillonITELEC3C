@@ -13,14 +13,27 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">id</th>
-      <th scope="col">Email</th>
-      <th scope="col">Name</th>
-      <th scope="col">Created At</th>
+      <th scope="col">category_name</th>
+      <th scope="col">user id</th>
+      <th scope="col">created at</th>
+
     </tr>
   </thead>
   <tbody>
 
+  @php
+  $i=1
+  @endphp
+  @foreach($categories as $category)
+    <tr>
+      <th scope="row">{{ $i++ }}</th>
+      <td>{{ $category->category_name }}</td>
+      <td>{{ $category->user_id }}</td>
+      <td>{{ $category->created_at}}</td>
+      
 
+    </tr>
+    @endforeach
   </tbody>
 </table>
 
