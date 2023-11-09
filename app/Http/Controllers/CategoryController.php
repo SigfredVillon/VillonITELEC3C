@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 
 use App\Models\Category;
 
@@ -33,7 +36,53 @@ class CategoryController extends Controller
 
     public function displayCategories()
     {
-        $categories = Category::all();
+        $categories = Category::latest()->paginate('5');
         return view('admin.categories', compact('categories'));
     }
+
+
+    public function AddCat(Request $request) {
+
+        $validated = $request->validate([
+            'category_name' => 'required|unique:categories|max:255',
+
+
+        ]);
+
+
+        Category::create([
+
+            
+            'category_name' => $request->category_name,
+            'user_id' => Auth::user()->id,
+            'created_at' => Carbon::now()
+
+
+        ]);
+
+        return Redirect()->back()->with('success','Category Inserted Sucessfully');
+    }
+
+
+    public function Edit($id){
+
+
+        $categories = Category::find($id);
+
+        return view('admin.edit',compact('categories'));
+    }
+
+
+    public function Update(Request $request, $id){
+        $update = Category::find($id)->update ([
+
+
+            'category_name'=>$request->category_name,
+            'user_id' => Auth::user()->id
+        ]);
+return Redirect()->route('categories')->with('success','Updated Successfully');
+    }
+
+
+
 }

@@ -26,8 +26,15 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/all/category',[CategoryController::class,'displayCategories'])->name('categories');
 
 });
+
+Route::get('/all/category',[CategoryController::class,'displayCategories'])->name('categories');
+
+Route::post('/category/add',[CategoryController::class,'AddCat'])->name('add.categories');
+
+Route::get('/category/edit/{id}',[CategoryController::class,'Edit']);
+
+Route::post('/category/update/{id}',[CategoryController::class,'Update'])->name('update.categories');
 
 
