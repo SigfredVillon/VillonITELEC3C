@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BrandController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,6 +28,23 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
+//BRAND
+Route::get('/brand', [BrandController ::class,'index'])->name('brand');
+
+Route::post('/brand/add', [BrandController::class,'AddBrand'])->name('add.brand');
+
+Route::get('/brand/edit/{id}', [BrandController::class,'EditBrand']);
+
+Route::post('/brand/update/{id}', [BrandController::class,'UpdateBrand']);
+
+Route::get('/brand/remove/{id}', [BrandController::class,'RemoveBrand']);
+
+Route::get('/brand/restore/{id}', [BrandController::class,'RestoreBrand']);
+
+Route::get('/brand/delete/{id}', [BrandController::class,'DeleteBrand']);
+
+
+
 
 });
 
@@ -36,5 +55,4 @@ Route::post('/category/add',[CategoryController::class,'AddCat'])->name('add.cat
 Route::get('/category/edit/{id}',[CategoryController::class,'Edit']);
 
 Route::post('/category/update/{id}',[CategoryController::class,'Update'])->name('update.categories');
-
 
